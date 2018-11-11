@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "cosas.h"
+#include "lab.h"
+
+void crearMatriz ();
 
 int main () {
     
@@ -15,4 +17,9 @@ int main () {
 
     fclose(pArchivo);
     return 0;
+}
+
+void crearMatriz () {
+
+    return;
 }
