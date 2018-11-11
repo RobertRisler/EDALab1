@@ -6,6 +6,7 @@
  * que los datos que se ingresen por el usuario se guarden en la matriz,
  * y que se imprima la matriz. 
  */
+
 int main () {
     int alto, ancho;
     printf("Ingrese el alto y el ancho de la maquina:\n");
