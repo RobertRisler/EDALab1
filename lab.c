@@ -6,6 +6,7 @@
 // Prototipos
 void obtenerDimensiones(int *dimensiones);
 void crearMaquina(char **maquina, int ancho);
+void girarRodillos();
 
 //Main
 int main() {
@@ -23,6 +24,7 @@ int main() {
     }
     crearMaquina(filas, dimensiones[1]);
 
+    /*
     // Visualizar maquina.
     for (i = 0; i < dimensiones[0]; i++) {
         for (j = 0; j < dimensiones[1]; j++) {
@@ -30,10 +32,11 @@ int main() {
         }
         printf("\n");
     }
+    */
 
     // Girar rodillos.
     srand(dimensiones[0] * dimensiones[1]);
-    
+
 
     return 0;
 }
@@ -81,3 +84,7 @@ void crearMaquina(char **maquina, int ancho) {
     return;
 }
 
+void girarRodillos() {
+
+    return;
+}
