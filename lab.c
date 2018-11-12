@@ -10,11 +10,11 @@ void crearMaquina(char **maquina, int ancho);
 //Main
 int main() {
 
-    // Obtencion matriz maquina
+    // Obtencion matriz maquina.
     int dimensiones[2];
     obtenerDimensiones(dimensiones);
 
-    // Creacion maquina
+    // Creacion maquina.
     int i, j;
     char maquina[dimensiones[0]][dimensiones[1]];
     char *filas[dimensiones[0]];
@@ -23,13 +23,17 @@ int main() {
     }
     crearMaquina(filas, dimensiones[1]);
 
-    // Visualizar maquina
+    // Visualizar maquina.
     for (i = 0; i < dimensiones[0]; i++) {
         for (j = 0; j < dimensiones[1]; j++) {
             printf("%c ", maquina[i][j]);
         }
         printf("\n");
     }
+
+    // Girar rodillos.
+    srand(dimensiones[0] * dimensiones[1]);
+    
 
     return 0;
 }
