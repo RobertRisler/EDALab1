@@ -5,7 +5,7 @@
 
 // Prototipos
 void obtenerDimensiones(int *dimensiones);
-void crearMaquina(char **maquina, int alto, int ancho);
+void crearMaquina(char **maquina, int ancho);
 
 //Main
 int main() {
@@ -21,7 +21,7 @@ int main() {
     for (i = 0; i < dimensiones[0]; i++) {
         filas[i] = maquina[i];
     }
-    crearMaquina(filas, dimensiones[0], dimensiones[1]);
+    crearMaquina(filas, dimensiones[1]);
 
     // Visualizar maquina
     for (i = 0; i < dimensiones[0]; i++) {
@@ -52,7 +52,7 @@ void obtenerDimensiones(int *arreglo) {
     return; 
 }
 
-void crearMaquina(char **maquina, int alto, int ancho) {
+void crearMaquina(char **maquina, int ancho) {
     
     char linea[(2 * ancho) + 1];
     int contador1, contador2, i;
@@ -77,28 +77,3 @@ void crearMaquina(char **maquina, int alto, int ancho) {
     return;
 }
 
-/*
-    char linea[(2 * ancho) + 1];    // Por los espacios, el largo es (2 * Ancho), + 1 por el \0.
-    char *token;
-    int contador1, contador2;
-
-    FILE *pArchivo;
-    pArchivo = fopen("maquina.in", "r");
-
-    contador1 = 0;
-    while (!feof(pArchivo)) {   // feof = end of file.
-        fgets(linea, (2 * ancho) + 1, pArchivo);
-        token = strtok(linea, " ");
-
-        contador2 = 0;
-        while (token != NULL) {
-            maquina[contador1][contador2] = 'a';
-            token = strtok(NULL, " ");
-            contador2++;
-        }
-
-        contador1++;
-    }
-    
-    fclose(pArchivo);
-*/
