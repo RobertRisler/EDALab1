@@ -3,48 +3,80 @@
 #include <string.h>
 #include "lab.h"
 
-int main () {
+// Prototipos
+void obtenerDimensiones(int *dimensiones);
+void crearMaquina(char **maquina, int alto, int ancho);
 
-    int i, j;
+//Main
+int main() {
+
+    // Obtencion matriz maquina
     int dimensiones[2];
-    char linea1[10];
-    char *token;
+    obtenerDimensiones(dimensiones);
 
-    FILE *pArchivo;
-    pArchivo = fopen("maquina.in", "r");
-    fgets(linea1, 10, pArchivo);
-
-    // Obtencion de las dimensiones de la maquina.
-    dimensiones[0] = atoi(strtok(linea1, " "));
-    dimensiones[1] = atoi(strtok(NULL, " "));
-
-    // Creacion matriz.
-    char linea2[(2 * dimensiones[1]) + 1];          // Por los espacios, el largo es (2 * Ancho), + 1 por el \0.
-    char maquina[dimensiones[0]][dimensiones[1]];   // Alto X Ancho
-    int contador1 = 0;
-    int contador2;
-
-    while (!feof(pArchivo)) {   // feof = end of file.
-        fgets(linea2, (2 * dimensiones[1] + 1), pArchivo);
-        token = strtok(linea2, " ");
-        contador2 = 0;
-        while (token != NULL) {
-            maquina[contador1][contador2] = token[0];
-            token = strtok(NULL, " ");
-            contador2++;
-        }
-        contador1++;
+    // Creacion maquina
+    int i, j;
+    char maquina[dimensiones[0]][dimensiones[1]];
+    char *filas[dimensiones[0]];
+    for (i = 0; i < dimensiones[0]; i++) {
+        filas[i] = maquina[i];
     }
+    crearMaquina(filas, dimensiones[0], dimensiones[1]);
 
-    fclose(pArchivo);
-
-    // Solo para ver la matriz.
+    // Visualizar maquina
     for (i = 0; i < dimensiones[0]; i++) {
         for (j = 0; j < dimensiones[1]; j++) {
             printf("%c ", maquina[i][j]);
         }
         printf("\n");
     }
-    
+
     return 0;
+}
+
+// Funciones
+void obtenerDimensiones(int *arreglo) {
+
+    char linea[10];
+    char *token;
+
+    FILE *pArchivo;
+    pArchivo = fopen("maquina.in", "r");
+    fgets(linea, 10, pArchivo);
+
+    arreglo[0] = atoi(strtok(linea, " "));
+    arreglo[1] = atoi(strtok(NULL, " "));
+
+    fclose(pArchivo);
+
+    return; 
+}
+
+void crearMaquina(char **maquina, int alto, int ancho) {
+    
+    char linea[(2 * ancho) + 1];    // Por los espacios, el largo es (2 * Ancho), + 1 por el \0.
+    char *token;
+    int contador1, contador2;
+    
+    FILE *pArchivo;
+    pArchivo = fopen("maquina.in", "r");
+
+    contador1 = 0;
+    while (!feof(pArchivo)) {   // feof = end of file.
+        fgets(linea, (2 * ancho) + 1, pArchivo);
+        token = strtok(linea, " ");
+
+        contador2 = 0;
+        while (token != NULL) {
+            maquina[contador1][contador2] = token[0];
+            token = strtok(NULL, " ");
+            contador2++;
+        }
+
+        contador1++;
+    }
+    
+    fclose(pArchivo);
+
+    return;
 }
