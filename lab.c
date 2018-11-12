@@ -3,11 +3,6 @@
 #include <string.h>
 #include "lab.h"
 
-// Prototipos
-void obtenerDimensiones(int *dimensiones);
-void crearMaquina(char **maquina, int ancho);
-void girarRodillos();
-
 //Main
 int main() {
 
