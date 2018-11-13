@@ -19,24 +19,33 @@ int main() {
     }
     crearMaquina(filas, dimensiones[1]);
 
-    /*
-    // Visualizar maquina.
+    // Visualizar maquina
+    #ifdef DEBUG
+    printf("\n");
     for (i = 0; i < dimensiones[0]; i++) {
         for (j = 0; j < dimensiones[1]; j++) {
             printf("%c ", maquina[i][j]);
         }
         printf("\n");
     }
-    */
+    printf("\n");
+    #endif
 
-    // Girar rodillos.
+    // Crear lista rodillo.
+    lista rodillo;
+    rodillo.inicio = NULL;
+    rodillo.size = 0;
+    rodillo = insertar(rodillo, maquina[0][0]);
+    imprimir(rodillo.inicio);
+
+    // Girar rodillo.
     srand(dimensiones[0] * dimensiones[1]);
-
+    
 
     return 0;
 }
 
-// Funciones
+// *** Funciones pertenecientes al programa ***
 void obtenerDimensiones(int *arreglo) {
 
     char linea[10];
@@ -82,4 +91,38 @@ void crearMaquina(char **maquina, int ancho) {
 void girarRodillos() {
 
     return;
+}
+
+// *** Otras funciones ***
+lista insertar(lista actual, char elemento) {
+	nodo * nuevo = (nodo*)malloc(sizeof(nodo));
+	nuevo->valor = elemento;
+	nuevo->sgte = NULL;
+	if (actual.size == 0) {
+		actual.inicio = nuevo;
+		actual.fin = nuevo;
+		actual.size = 1;
+	}
+	else {
+		nodo * aux = actual.inicio;
+		int i;
+		for (i = 0; i < actual.size-1; i++){
+			aux = aux->sgte;
+		}
+		aux->sgte = nuevo;
+		actual.fin = nuevo;
+		actual.size++;
+	}
+	return actual;
+}
+
+void imprimir(nodo *lista){
+	nodo *aux;
+	aux = lista;
+	while(aux->sgte != NULL){
+		printf("%c", aux->valor);
+		aux = aux->sgte;
+	}
+	printf("%c", aux->valor);
+	printf("\n");
 }

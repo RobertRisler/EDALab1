@@ -7,3 +7,11 @@ Lab 1 EDA C (2-2018)
             · Obtiene valores para alto y ancho de la máquina.
             · Crea matriz máquina a partir de esos valores.
             · Rellena la matriz máquina con los valores del archivo.
+    
+    Avance 12 de Noviembre 2018:
+
+        - Arreglado el tema de la matriz, ahora se crea en main pero se modifica desde una función.
+
+    Avance 13 de Noviembre 2018:
+
+        -
