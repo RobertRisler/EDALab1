@@ -10,7 +10,7 @@ Lab 1 EDA C (2-2018)
     
     Avance 12 de Noviembre 2018:
 
-        - Arreglado el tema de la matriz, ahora se crea en main pero se modifica desde una función.
+        - Cambiado el tema de la matriz, ahora se crea en main pero se modifica desde una función.
 
     Avance 13 de Noviembre 2018:
 
