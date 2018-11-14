@@ -63,8 +63,6 @@ int main() {
     }
     printf("\n");
     #endif
-    
-    
 
     return 0;
 }
@@ -113,6 +111,7 @@ void crearMaquina(char **maquina, int ancho) {
 }
 
 lista girarRodillo(lista rodillo) {
+
     int i, giros;
     nodo *aux = rodillo.inicio;
     giros = (rand() % 10) + 1;  // Rango 1-10
@@ -126,6 +125,7 @@ lista girarRodillo(lista rodillo) {
 
 // *** Otras funciones ***
 lista insertarLista(lista rodillo, char elemento) {
+
 	nodo *nuevo = (nodo *)malloc(sizeof(nodo));
 	nuevo->valor = elemento;
 	nuevo->sgte = NULL;
@@ -148,6 +148,7 @@ lista insertarLista(lista rodillo, char elemento) {
 }
 
 lista borrarLista(lista rodillo) {
+
     int i;
     nodo *aux = rodillo.inicio;
     for (i = 0; i < (rodillo.size - 1); i++) {
@@ -159,6 +160,7 @@ lista borrarLista(lista rodillo) {
     while (aux->sgte != NULL) {
         rodillo.inicio = aux->sgte;
         free(aux);
+        rodillo.size--;
         aux = rodillo.inicio;
     }
     free(aux);
@@ -166,7 +168,8 @@ lista borrarLista(lista rodillo) {
     return rodillo;
 }
 
-void imprimirLista(nodo *lista){
+void imprimirLista(nodo *lista) {
+
     int i;
 	nodo *aux = lista;
 	for (i = 0; i < 4; i++){

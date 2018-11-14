@@ -21,7 +21,7 @@ Lab 1 EDA C (2-2018)
     Avance 14 de Noviembre 2018:
 
         - Más funciones para listas:
-            · borrarLista: elimina completamente una lista enlazada creada.
+            · borrarLista: elimina completamente una lista enlazada creada (free).
         
         - Se giran los rodillos (lista enlazada circular) y luego los valores se vuelven a ubicar
           en la matriz original máquina.
