@@ -9,6 +9,7 @@ int main() {
     // Obtencion matriz maquina.
     int dimensiones[2];
     obtenerDimensiones(dimensiones);
+    srand(dimensiones[0] * dimensiones[1]);
 
     // Creacion maquina.
     int i, j;
@@ -32,16 +33,17 @@ int main() {
     #endif
 
     // Crear lista rodillo.
-    lista rodillo;
-    rodillo.inicio = NULL;
-    rodillo.size = 0;
-    rodillo = insertar(rodillo, maquina[0][0]);
-    imprimir(rodillo.inicio);
-
-    // Girar rodillo.
-    srand(dimensiones[0] * dimensiones[1]);
+    for (j = 0; j < dimensiones[1]; j++) {
+        lista rodillo;
+        rodillo.inicio = NULL;
+        rodillo.size = 0;
+        for (i = 0; i < dimensiones[0]; i++) {
+            rodillo = insertar(rodillo, maquina[i][j]);
+        }
+        imprimir(rodillo.inicio);
+        // Girar rodillo.
+    }
     
-
     return 0;
 }
 
