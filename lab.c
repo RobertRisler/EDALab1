@@ -11,10 +11,10 @@ int main() {
     // Obtencion matriz maquina.
     int dimensiones[2];
     obtenerDimensiones(dimensiones);
-    srand(dimensiones[0] * dimensiones[1]);
+    srand(2018);
 
     // Creacion maquina.
-    int i, j, k;
+    int i, j;
     char maquina[dimensiones[0]][dimensiones[1]];
     char *filas[dimensiones[0]];
     for (i = 0; i < dimensiones[0]; i++) {
@@ -42,7 +42,7 @@ int main() {
         for (i = 0; i < dimensiones[0]; i++) {
             rodillo = insertarLista(rodillo, maquina[i][j]);
         }
-        rodillo = girarRodillo(rodillo);
+        rodillo = girarRodillo(rodillo, j);
 
         // Devolver los valores a la matriz.
         nodo *aux = rodillo.inicio;
@@ -63,6 +63,10 @@ int main() {
     }
     printf("\n");
     #endif
+
+    // Encontrar combinaciones.
+    encontrarCombinaciones(filas);
+
 
     return 0;
 }
@@ -110,11 +114,19 @@ void crearMaquina(char **maquina, int ancho) {
     return;
 }
 
-lista girarRodillo(lista rodillo) {
+lista girarRodillo(lista rodillo, int j) {
 
     int i, giros;
     nodo *aux = rodillo.inicio;
-    giros = (rand() % 10) + 1;  // Rango 1-10
+    giros = (rand() % 10) + 1;  // Rango 1-10.
+    
+    if (giros == 1) {
+        printf("El rodillo %d giro: %d vez.\n", j + 1, giros);
+    }
+    else {
+        printf("El rodillo %d giro: %d veces.\n", j + 1, giros);
+    }
+    
     for (i = 0; i < giros; i++) {
         aux = aux->sgte;
     }
@@ -123,12 +135,18 @@ lista girarRodillo(lista rodillo) {
     return rodillo;
 }
 
+void encontrarCombinaciones(char **maquina) {
+    
+    return;
+}
+
 // *** Otras funciones ***
 lista insertarLista(lista rodillo, char elemento) {
 
 	nodo *nuevo = (nodo *)malloc(sizeof(nodo));
 	nuevo->valor = elemento;
 	nuevo->sgte = NULL;
+
 	if (rodillo.size == 0) {
 		rodillo.inicio = nuevo;
 		rodillo.size = 1;
@@ -151,6 +169,7 @@ lista borrarLista(lista rodillo) {
 
     int i;
     nodo *aux = rodillo.inicio;
+
     for (i = 0; i < (rodillo.size - 1); i++) {
         aux = aux->sgte;
     }

@@ -12,7 +12,8 @@ typedef struct ListaEnlazada {
 // Prototipos
 void obtenerDimensiones(int *dimensiones);
 void crearMaquina(char **maquina, int ancho);
-lista girarRodillo(lista rodillo);
+lista girarRodillo(lista rodillo, int j);
+void encontrarCombinaciones(char **maquina); 
 
 lista insertarLista(lista actual, char elemento);
 lista borrarLista(lista rodillo);
