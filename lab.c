@@ -2,7 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include "lab.h"
+
 #define DEBUG
+
 //Main
 int main() {
 
@@ -38,7 +40,7 @@ int main() {
         rodillo.inicio = NULL;
         rodillo.size = 0;
         for (i = 0; i < dimensiones[0]; i++) {
-            rodillo = insertar(rodillo, maquina[i][j]);
+            rodillo = insertarLista(rodillo, maquina[i][j]);
         }
         rodillo = girarRodillo(rodillo);
 
@@ -48,7 +50,7 @@ int main() {
             maquina[i][j] = aux->valor;
             aux = aux->sgte;
         }
-        //DEBO HACER FREE
+        borrarLista(rodillo);
     }
 
     #ifdef DEBUG
@@ -123,29 +125,48 @@ lista girarRodillo(lista rodillo) {
 }
 
 // *** Otras funciones ***
-lista insertar(lista actual, char elemento) {
+lista insertarLista(lista rodillo, char elemento) {
 	nodo *nuevo = (nodo *)malloc(sizeof(nodo));
 	nuevo->valor = elemento;
 	nuevo->sgte = NULL;
-	if (actual.size == 0) {
-		actual.inicio = nuevo;
-		actual.size = 1;
+	if (rodillo.size == 0) {
+		rodillo.inicio = nuevo;
+		rodillo.size = 1;
 	}
 	else {
-		nodo *aux = actual.inicio;
+		nodo *aux = rodillo.inicio;
 		int i;
-		for (i = 0; i < actual.size-1; i++){
+		for (i = 0; i < (rodillo.size-1); i++){
 			aux = aux->sgte;
 		}
 		aux->sgte = nuevo;
-        nuevo->sgte = actual.inicio;
-		actual.size++;
+        nuevo->sgte = rodillo.inicio;
+		rodillo.size++;
 	}
 
-	return actual;
+	return rodillo;
 }
 
-void imprimir(nodo *lista){
+lista borrarLista(lista rodillo) {
+    int i;
+    nodo *aux = rodillo.inicio;
+    for (i = 0; i < (rodillo.size - 1); i++) {
+        aux = aux->sgte;
+    }
+    aux->sgte = NULL;   // Dejar de ser lista enlazada circular.
+
+    aux = rodillo.inicio;
+    while (aux->sgte != NULL) {
+        rodillo.inicio = aux->sgte;
+        free(aux);
+        aux = rodillo.inicio;
+    }
+    free(aux);
+
+    return rodillo;
+}
+
+void imprimirLista(nodo *lista){
     int i;
 	nodo *aux = lista;
 	for (i = 0; i < 4; i++){
@@ -157,3 +178,5 @@ void imprimir(nodo *lista){
 
     return;
 }
+
+//look at my face step in my soul while i get u stupify WOAH

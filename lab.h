@@ -14,5 +14,6 @@ void obtenerDimensiones(int *dimensiones);
 void crearMaquina(char **maquina, int ancho);
 lista girarRodillo(lista rodillo);
 
-lista insertar(lista actual, char elemento);
-void imprimir(nodo*lista);
+lista insertarLista(lista actual, char elemento);
+lista borrarLista(lista rodillo);
+void imprimirLista(nodo*lista);
