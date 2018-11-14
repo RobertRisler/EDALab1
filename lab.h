@@ -6,14 +6,13 @@ typedef struct Nodo {
 
 typedef struct ListaEnlazada {
 	nodo *inicio;
-	nodo *fin;
 	int size;
 } lista;
 
 // Prototipos
 void obtenerDimensiones(int *dimensiones);
 void crearMaquina(char **maquina, int ancho);
-void girarRodillos();
+lista girarRodillo(lista rodillo);
 
 lista insertar(lista actual, char elemento);
 void imprimir(nodo*lista);

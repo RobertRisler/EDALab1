@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "lab.h"
-
+#define DEBUG
 //Main
 int main() {
 
@@ -12,7 +12,7 @@ int main() {
     srand(dimensiones[0] * dimensiones[1]);
 
     // Creacion maquina.
-    int i, j;
+    int i, j, k;
     char maquina[dimensiones[0]][dimensiones[1]];
     char *filas[dimensiones[0]];
     for (i = 0; i < dimensiones[0]; i++) {
@@ -32,7 +32,7 @@ int main() {
     printf("\n");
     #endif
 
-    // Crear lista rodillo.
+    // Girar rodillo.
     for (j = 0; j < dimensiones[1]; j++) {
         lista rodillo;
         rodillo.inicio = NULL;
@@ -40,10 +40,30 @@ int main() {
         for (i = 0; i < dimensiones[0]; i++) {
             rodillo = insertar(rodillo, maquina[i][j]);
         }
-        imprimir(rodillo.inicio);
-        // Girar rodillo.
+        rodillo = girarRodillo(rodillo);
+
+        // Devolver los valores a la matriz.
+        nodo *aux = rodillo.inicio;
+        for (i = 0; i < dimensiones[0]; i++) {
+            maquina[i][j] = aux->valor;
+            aux = aux->sgte;
+        }
+        //DEBO HACER FREE
     }
+
+    #ifdef DEBUG
+    printf("\n");
+    for (i = 0; i < dimensiones[0]; i++) {
+        for (j = 0; j < dimensiones[1]; j++) {
+            printf("%c ", maquina[i][j]);
+        }
+        printf("\n");
+    }
+    printf("\n");
+    #endif
     
+    
+
     return 0;
 }
 
@@ -90,41 +110,50 @@ void crearMaquina(char **maquina, int ancho) {
     return;
 }
 
-void girarRodillos() {
+lista girarRodillo(lista rodillo) {
+    int i, giros;
+    nodo *aux = rodillo.inicio;
+    giros = (rand() % 10) + 1;  // Rango 1-10
+    for (i = 0; i < giros; i++) {
+        aux = aux->sgte;
+    }
+    rodillo.inicio = aux;
 
-    return;
+    return rodillo;
 }
 
 // *** Otras funciones ***
 lista insertar(lista actual, char elemento) {
-	nodo * nuevo = (nodo*)malloc(sizeof(nodo));
+	nodo *nuevo = (nodo *)malloc(sizeof(nodo));
 	nuevo->valor = elemento;
 	nuevo->sgte = NULL;
 	if (actual.size == 0) {
 		actual.inicio = nuevo;
-		actual.fin = nuevo;
 		actual.size = 1;
 	}
 	else {
-		nodo * aux = actual.inicio;
+		nodo *aux = actual.inicio;
 		int i;
 		for (i = 0; i < actual.size-1; i++){
 			aux = aux->sgte;
 		}
 		aux->sgte = nuevo;
-		actual.fin = nuevo;
+        nuevo->sgte = actual.inicio;
 		actual.size++;
 	}
+
 	return actual;
 }
 
 void imprimir(nodo *lista){
-	nodo *aux;
-	aux = lista;
-	while(aux->sgte != NULL){
+    int i;
+	nodo *aux = lista;
+	for (i = 0; i < 4; i++){
 		printf("%c", aux->valor);
 		aux = aux->sgte;
 	}
 	printf("%c", aux->valor);
 	printf("\n");
+
+    return;
 }

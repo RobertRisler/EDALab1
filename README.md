@@ -14,4 +14,4 @@ Lab 1 EDA C (2-2018)
 
     Avance 13 de Noviembre 2018:
 
-        -
+        - Agregado el uso de listas enlazadas.
