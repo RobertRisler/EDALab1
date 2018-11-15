@@ -68,10 +68,10 @@ int main() {
     // Calcular puntaje total.
     long puntajeAcumulado;
     puntajeAcumulado = encontrarCombinaciones(filas, dimensiones[0], dimensiones[1]);
-    printf("%ld\n", puntajeAcumulado);
+    printf("MAIN: %ld\n", puntajeAcumulado);
 
-
-
+    // Creacion y relleno de archivo resultados.out
+    crearArchivoResultados(puntajeAcumulado);
 
     return 0;
 }
@@ -106,7 +106,7 @@ void crearMaquina(char **maquina, int ancho) {
     fgets(linea, (2 * ancho) + 1, pArchivo);
 
     contador1 = 0;
-    while (!feof(pArchivo)) {
+    while (!feof(pArchivo)) {   // end of file.
         contador2 = 0;
         fgets(linea, (2 * ancho) + 1, pArchivo);
         for (i = 0; i < (2 * ancho); i = i + 2) {
@@ -302,7 +302,45 @@ long encontrarPuntaje(lista diagonal) {
     return acumAux;
 }
 
+void crearArchivoResultados (long puntajeObtenido) {
 
+    FILE *pArchivoIN, *pArchivoOUT;
+    pArchivoIN = fopen("premios.in", "r");
+    pArchivoOUT = fopen("resultados.out", "w");
+
+    fprintf(pArchivoOUT, "Puntaje obtenido: %d\n", puntajeObtenido);
+    fprintf(pArchivoOUT, "Premio: ");
+
+    int puntajeAnterior, puntajeActual;
+    char premioAnterior[100], premioActual[100];
+
+    fscanf(pArchivoIN, "%d %s", &puntajeAnterior, premioAnterior);
+    if (puntajeObtenido < puntajeAnterior) {
+        fprintf(pArchivoOUT, "Nada");
+        fclose(pArchivoIN);
+        fclose(pArchivoOUT);
+        return;
+    }
+    else {
+        while (fscanf(pArchivoIN, "%d %s", &puntajeActual, premioActual) != EOF) {
+            printf("%d %s", puntajeActual, premioActual);
+            if (puntajeObtenido > puntajeAnterior && puntajeObtenido < puntajeActual) {
+                fprintf(pArchivoOUT, "%s", premioAnterior);
+                fclose(pArchivoIN);
+                fclose(pArchivoOUT);
+                return;
+            }
+            else {
+                puntajeAnterior = puntajeActual;
+                strcpy(premioAnterior, premioActual);
+            }
+        }
+        fprintf(pArchivoOUT, "%s", premioAnterior);
+        fclose(pArchivoIN);
+        fclose(pArchivoOUT);
+        return;
+    }
+}
 
 
 

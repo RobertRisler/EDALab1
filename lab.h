@@ -16,6 +16,7 @@ void crearMaquina(char **maquina, int ancho);
 lista girarRodillo(lista rodillo, int j);
 long encontrarCombinaciones(char **maquina, int alto, int ancho);
 long encontrarPuntaje(lista diagonal);
+void crearArchivoResultados (long puntajeObtenido);
 
 lista insertarLista(lista actual, char elemento);
 lista borrarLista(lista rodillo);
