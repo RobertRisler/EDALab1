@@ -3,7 +3,7 @@
 #include <string.h>
 #include "lab.h"
 
-#define DEBUG
+//#define DEBUG
 
 //Main
 int main() {
@@ -65,8 +65,7 @@ int main() {
     #endif
 
     // Encontrar combinaciones.
-    encontrarCombinaciones(filas);
-
+    encontrarCombinaciones(filas, dimensiones[0], dimensiones[1]);
 
     return 0;
 }
@@ -121,10 +120,10 @@ lista girarRodillo(lista rodillo, int j) {
     giros = (rand() % 10) + 1;  // Rango 1-10.
     
     if (giros == 1) {
-        printf("El rodillo %d giro: %d vez.\n", j + 1, giros);
+        printf("El rodillo %d giro %d vez.\n", j + 1, giros);
     }
     else {
-        printf("El rodillo %d giro: %d veces.\n", j + 1, giros);
+        printf("El rodillo %d giro %d veces.\n", j + 1, giros);
     }
     
     for (i = 0; i < giros; i++) {
@@ -135,8 +134,48 @@ lista girarRodillo(lista rodillo, int j) {
     return rodillo;
 }
 
-void encontrarCombinaciones(char **maquina) {
-    
+void encontrarCombinaciones(char **maquina, int alto, int ancho) {
+    int i, j, k, contador;
+    char elemento1, elemento2, elemento3, elemento4;
+    char *posicion;
+    lista combinaciones;
+    combinaciones.inicio = NULL;
+    combinaciones.size = 0;
+    for (i = 0; i < alto; i++) {
+        for (j = 0; j < ancho; j++) {
+            elemento1 = maquina[i][j];
+            contador = 1;
+            if (i < (alto - 2)) {
+                if (j < 2) {    // revisar derecha y diagonal derecha
+                    k = j + 1;
+                    elemento2 = maquina[i][k];
+                    while (elemento1 == elemento2) {
+                        contador++;
+                        k++;
+                        elemento2 = maquina[i][k];
+                    }
+                    if (contador > 2) {
+                        
+                    }
+
+                    elemento3= maquina[i + 1][j + 1];
+
+                }
+                else if (j < (ancho - 2)) { // revisar derecha, diagonal derecha y diagonal izquierda
+                    
+                }
+                else {  // cuando (j < ancho) - revisar diagonal izquierda
+
+                }
+                    
+            }
+            else {  //cuando (i < alto) - revisar derecha
+
+            }
+
+        }
+    }
+
     return;
 }
 

@@ -13,7 +13,7 @@ typedef struct ListaEnlazada {
 void obtenerDimensiones(int *dimensiones);
 void crearMaquina(char **maquina, int ancho);
 lista girarRodillo(lista rodillo, int j);
-void encontrarCombinaciones(char **maquina); 
+void encontrarCombinaciones(char **maquina, int alto, int ancho);
 
 lista insertarLista(lista actual, char elemento);
 lista borrarLista(lista rodillo);
