@@ -18,4 +18,4 @@ long encontrarCombinaciones(char **maquina, int alto, int ancho);
 
 lista insertarLista(lista actual, char elemento);
 lista borrarLista(lista rodillo);
-void imprimirLista(nodo *lista, int tamaño);
+void imprimirLista(nodo *lista, int tamano);

@@ -26,3 +26,6 @@ Lab 1 EDA C (2-2018)
         - Se giran los rodillos (lista enlazada circular) y luego los valores se vuelven a ubicar
           en la matriz original máquina.
 
+        - Se encuentran las combinaciones horizontales y se asignan los puntos correspondientes.
+
+        -

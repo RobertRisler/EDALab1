@@ -162,9 +162,12 @@ long encontrarCombinaciones(char **maquina, int alto, int ancho) {
     }
     
     // Encontrar las combinaciones diagonales hacia la derecha-abajo.
+    lista diagonal;
+    nodo *aux;
+    nodo *aux2;
+
     for (i = (alto - 3); i > 0; i--) {
         k = i;
-        lista diagonal;
         diagonal.inicio = NULL;
         diagonal.size = 0;
         for (j = 0; j < (alto - i); j++) {
@@ -173,7 +176,7 @@ long encontrarCombinaciones(char **maquina, int alto, int ancho) {
         }
 
         // Hacer que deje de ser lista enlazada circular.
-        nodo *aux = diagonal.inicio;
+        aux = diagonal.inicio;
         while (aux != diagonal.fin) {
             aux = aux->sgte;
         }
@@ -181,7 +184,7 @@ long encontrarCombinaciones(char **maquina, int alto, int ancho) {
 
         // Busqueda.
         aux = diagonal.inicio;
-        nodo *aux2 = diagonal.inicio;
+        aux2 = diagonal.inicio;
         contador = 1;
         while (aux2->sgte != NULL) {
             aux2 = aux2->sgte;
@@ -192,19 +195,110 @@ long encontrarCombinaciones(char **maquina, int alto, int ancho) {
                 if (contador > 2) {
                     acumulado = acumulado + (50 * (pow(contador, 1.5)));
                     contador = 1;
-                    aux = aux2;
                 }
+                else {
+                    contador = 1;
+                }
+                aux = aux2;
             }
         }
         if (contador > 2) {
             acumulado = acumulado + (50 * (pow(contador, 1.5)));
-            borrarLista(diagonal);
+        }
+        borrarLista(diagonal);
+    }
+
+    for (j = 0; j < (ancho - alto + 1); j++) {
+        l = j;
+        diagonal.inicio = NULL;
+        diagonal.size = 0;
+        for(i = 0; i < alto; i++) {
+            diagonal = insertarLista(diagonal, maquina[i][l]);
+            l++;
         }
 
+        // Hacer que deje de ser lista enlazada circular.
+        aux = diagonal.inicio;
+        while (aux != diagonal.fin) {
+            aux = aux->sgte;
+        }
+        aux->sgte = NULL;
+
+        // Busqueda.
+        aux = diagonal.inicio;
+        aux2 = diagonal.inicio;
+        contador = 1;
+        while (aux2->sgte != NULL) {
+            aux2 = aux2->sgte;
+            if (aux->valor == aux2->valor) {
+                contador++;
+            }
+            else {
+                if (contador > 2) {
+                    acumulado = acumulado + (50 * (pow(contador, 1.5)));
+                    contador = 1;
+                }
+                else {
+                    contador = 1;
+                }
+                aux = aux2;
+            }
+        }
+        if (contador > 2) {
+            acumulado = acumulado + (50 * (pow(contador, 1.5)));
+        }
+        borrarLista(diagonal);
     }
+
+    int valorMax = alto - 2;
+    for (j = (ancho - alto + 1); j < (ancho - 2); j++) {
+        l = j;
+        diagonal.inicio = NULL;
+        diagonal.size = 0;
+        for(i = 0; i <= valorMax; i++) {
+            diagonal = insertarLista(diagonal, maquina[i][l]);
+            l++;
+        }
+        valorMax--;
+
+        // Hacer que deje de ser lista enlazada circular.
+        aux = diagonal.inicio;
+        while (aux != diagonal.fin) {
+            aux = aux->sgte;
+        }
+        aux->sgte = NULL;
+
+        // Busqueda.
+        aux = diagonal.inicio;
+        aux2 = diagonal.inicio;
+        contador = 1;
+        while (aux2->sgte != NULL) {
+            aux2 = aux2->sgte;
+            if (aux->valor == aux2->valor) {
+                contador++;
+            }
+            else {
+                if (contador > 2) {
+                    acumulado = acumulado + (50 * (pow(contador, 1.5)));
+                    contador = 1;
+                }
+                else {
+                    contador = 1;
+                }
+                aux = aux2;
+            }
+        }
+        if (contador > 2) {
+            acumulado = acumulado + (50 * (pow(contador, 1.5)));
+        }
+        borrarLista(diagonal);
+    }
+
+        
 
     return acumulado;
 }
+
 
 /********** Otras funciones **********/
 lista insertarLista(lista rodillo, char elemento) {
@@ -255,11 +349,11 @@ lista borrarLista(lista rodillo) {
     return rodillo;
 }
 
-void imprimirLista(nodo *lista, int tamaño) {
+void imprimirLista(nodo *lista, int tamano) {
 
     int i;
 	nodo *aux = lista;
-	for (i = 0; i < (tamaño - 1); i++){
+	for (i = 0; i < (tamano - 1); i++){
 		printf("%c", aux->valor);
 		aux = aux->sgte;
 	}
