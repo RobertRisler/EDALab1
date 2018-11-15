@@ -65,8 +65,10 @@ int main() {
     printf("\n");
     #endif
 
-    // Encontrar combinaciones.
-    encontrarCombinaciones(filas, dimensiones[0], dimensiones[1]);
+    // Calcular puntaje total.
+    long puntajeAcumulado;
+    puntajeAcumulado = encontrarCombinaciones(filas, dimensiones[0], dimensiones[1]);
+    printf("%ld\n", puntajeAcumulado);
 
     return 0;
 }
@@ -135,11 +137,11 @@ lista girarRodillo(lista rodillo, int j) {
     return rodillo;
 }
 
-void encontrarCombinaciones(char **maquina, int alto, int ancho) {
-    int i, j, k, contador;
+long encontrarCombinaciones(char **maquina, int alto, int ancho) {
+    int i, j, k, l, verificador, contador;
     long acumulado = 0;
     char elemento1, elemento2;
-
+    
     // Encontrar combinaciones solo hacia la derecha.
     for (i = 0; i < alto; i++) {
         for (j = 0; j < (ancho - 2); j++) {
@@ -154,13 +156,15 @@ void encontrarCombinaciones(char **maquina, int alto, int ancho) {
             }
             if (contador > 2) {
                 acumulado = acumulado + (50 * (pow(contador, 1.5)));
+                j = k;
             }
-            j = k;
         }
     }
-    printf("%ld\n", acumulado);
-
-    return;
+    
+    // Encontrar las combinaciones diagonales hacia la derecha-abajo.
+    
+    
+    return acumulado;
 }
 
 /********** Otras funciones **********/
