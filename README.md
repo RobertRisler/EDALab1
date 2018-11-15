@@ -33,3 +33,5 @@ Lab 1 EDA C (2-2018)
         - Se encuentran las combinaciones diagonales derecha-abajo y se asignan puntos.
 
         - Se encuentran las combinaciones diagonales izquierda-abajo y se asignan puntos.
+
+        - Se escribe el archivo de salida con el puntaje y el premio correspondiente.
