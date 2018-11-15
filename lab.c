@@ -4,8 +4,6 @@
 #include <math.h>
 #include "lab.h"
 
-#define DEBUG
-
 /********** Main **********/
 int main() {
 
@@ -22,18 +20,6 @@ int main() {
         filas[i] = maquina[i];
     }
     crearMaquina(filas, dimensiones[1]);
-
-    // Visualizar maquina
-    #ifdef DEBUG
-    printf("\n");
-    for (i = 0; i < dimensiones[0]; i++) {
-        for (j = 0; j < dimensiones[1]; j++) {
-            printf("%c ", maquina[i][j]);
-        }
-        printf("\n");
-    }
-    printf("\n");
-    #endif
 
     // Girar rodillo.
     for (j = 0; j < dimensiones[1]; j++) {
@@ -54,21 +40,9 @@ int main() {
         borrarLista(rodillo);
     }
 
-    #ifdef DEBUG
-    printf("\n");
-    for (i = 0; i < dimensiones[0]; i++) {
-        for (j = 0; j < dimensiones[1]; j++) {
-            printf("%c ", maquina[i][j]);
-        }
-        printf("\n");
-    }
-    printf("\n");
-    #endif
-
     // Calcular puntaje total.
     long puntajeAcumulado;
     puntajeAcumulado = encontrarCombinaciones(filas, dimensiones[0], dimensiones[1]);
-    printf("MAIN: %ld\n", puntajeAcumulado);
 
     // Creacion y relleno de archivo resultados.out
     crearArchivoResultados(puntajeAcumulado);
@@ -323,7 +297,6 @@ void crearArchivoResultados (long puntajeObtenido) {
     }
     else {
         while (fscanf(pArchivoIN, "%d %s", &puntajeActual, premioActual) != EOF) {
-            printf("%d %s", puntajeActual, premioActual);
             if (puntajeObtenido > puntajeAnterior && puntajeObtenido < puntajeActual) {
                 fprintf(pArchivoOUT, "%s", premioAnterior);
                 fclose(pArchivoIN);
