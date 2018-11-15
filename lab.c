@@ -162,8 +162,47 @@ long encontrarCombinaciones(char **maquina, int alto, int ancho) {
     }
     
     // Encontrar las combinaciones diagonales hacia la derecha-abajo.
-    
-    
+    for (i = (alto - 3); i > 0; i--) {
+        k = i;
+        lista diagonal;
+        diagonal.inicio = NULL;
+        diagonal.size = 0;
+        for (j = 0; j < (alto - i); j++) {
+            diagonal = insertarLista(diagonal, maquina[k][j]);
+            k++;
+        }
+
+        // Hacer que deje de ser lista enlazada circular.
+        nodo *aux = diagonal.inicio;
+        while (aux != diagonal.fin) {
+            aux = aux->sgte;
+        }
+        aux->sgte = NULL;
+
+        // Busqueda.
+        aux = diagonal.inicio;
+        nodo *aux2 = diagonal.inicio;
+        contador = 1;
+        while (aux2->sgte != NULL) {
+            aux2 = aux2->sgte;
+            if (aux->valor == aux2->valor) {
+                contador++;
+            }
+            else {
+                if (contador > 2) {
+                    acumulado = acumulado + (50 * (pow(contador, 1.5)));
+                    contador = 1;
+                    aux = aux2;
+                }
+            }
+        }
+        if (contador > 2) {
+            acumulado = acumulado + (50 * (pow(contador, 1.5)));
+            borrarLista(diagonal);
+        }
+
+    }
+
     return acumulado;
 }
 
@@ -176,15 +215,17 @@ lista insertarLista(lista rodillo, char elemento) {
 
 	if (rodillo.size == 0) {
 		rodillo.inicio = nuevo;
+        rodillo.fin = nuevo;
 		rodillo.size = 1;
 	}
 	else {
 		nodo *aux = rodillo.inicio;
 		int i;
-		for (i = 0; i < (rodillo.size-1); i++){
+		for (i = 0; i < (rodillo.size - 1); i++){
 			aux = aux->sgte;
 		}
 		aux->sgte = nuevo;
+        rodillo.fin = nuevo;
         nuevo->sgte = rodillo.inicio;
 		rodillo.size++;
 	}
@@ -214,11 +255,11 @@ lista borrarLista(lista rodillo) {
     return rodillo;
 }
 
-void imprimirLista(nodo *lista) {
+void imprimirLista(nodo *lista, int tamaño) {
 
     int i;
 	nodo *aux = lista;
-	for (i = 0; i < 4; i++){
+	for (i = 0; i < (tamaño - 1); i++){
 		printf("%c", aux->valor);
 		aux = aux->sgte;
 	}

@@ -6,6 +6,7 @@ typedef struct Nodo {
 
 typedef struct ListaEnlazada {
 	nodo *inicio;
+	nodo *fin;
 	int size;
 } lista;
 
@@ -17,4 +18,4 @@ long encontrarCombinaciones(char **maquina, int alto, int ancho);
 
 lista insertarLista(lista actual, char elemento);
 lista borrarLista(lista rodillo);
-void imprimirLista(nodo*lista);
+void imprimirLista(nodo *lista, int tamaño);
