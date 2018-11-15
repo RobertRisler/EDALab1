@@ -1,4 +1,4 @@
-// Estructuras
+/********** Estructuras **********/
 typedef struct Nodo {
 	char valor;
 	struct Nodo *sgte;
@@ -9,7 +9,7 @@ typedef struct ListaEnlazada {
 	int size;
 } lista;
 
-// Prototipos
+/********** Prototipos **********/
 void obtenerDimensiones(int *dimensiones);
 void crearMaquina(char **maquina, int ancho);
 lista girarRodillo(lista rodillo, int j);

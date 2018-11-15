@@ -1,11 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 #include "lab.h"
 
-//#define DEBUG
+#define DEBUG
 
-//Main
+/********** Main **********/
 int main() {
 
     // Obtencion matriz maquina.
@@ -70,7 +71,7 @@ int main() {
     return 0;
 }
 
-// *** Funciones pertenecientes al programa ***
+/********** Funciones pertenecientes al programa **********/
 void obtenerDimensiones(int *arreglo) {
 
     char linea[10];
@@ -136,50 +137,33 @@ lista girarRodillo(lista rodillo, int j) {
 
 void encontrarCombinaciones(char **maquina, int alto, int ancho) {
     int i, j, k, contador;
-    char elemento1, elemento2, elemento3, elemento4;
-    char *posicion;
-    lista combinaciones;
-    combinaciones.inicio = NULL;
-    combinaciones.size = 0;
+    long acumulado = 0;
+    char elemento1, elemento2;
+
+    // Encontrar combinaciones solo hacia la derecha.
     for (i = 0; i < alto; i++) {
-        for (j = 0; j < ancho; j++) {
-            elemento1 = maquina[i][j];
+        for (j = 0; j < (ancho - 2); j++) {
             contador = 1;
-            if (i < (alto - 2)) {
-                if (j < 2) {    // revisar derecha y diagonal derecha
-                    k = j + 1;
-                    elemento2 = maquina[i][k];
-                    while (elemento1 == elemento2) {
-                        contador++;
-                        k++;
-                        elemento2 = maquina[i][k];
-                    }
-                    if (contador > 2) {
-                        
-                    }
-
-                    elemento3= maquina[i + 1][j + 1];
-
-                }
-                else if (j < (ancho - 2)) { // revisar derecha, diagonal derecha y diagonal izquierda
-                    
-                }
-                else {  // cuando (j < ancho) - revisar diagonal izquierda
-
-                }
-                    
+            k = j + 1;
+            elemento1 = maquina[i][j];
+            elemento2 = maquina[i][k];
+            while ((elemento1 == elemento2) && (k < ancho)) {
+                contador++;
+                k++;
+                elemento2 = maquina[i][k];
             }
-            else {  //cuando (i < alto) - revisar derecha
-
+            if (contador > 2) {
+                acumulado = acumulado + (50 * (pow(contador, 1.5)));
             }
-
+            j = k;
         }
     }
+    printf("%ld\n", acumulado);
 
     return;
 }
 
-// *** Otras funciones ***
+/********** Otras funciones **********/
 lista insertarLista(lista rodillo, char elemento) {
 
 	nodo *nuevo = (nodo *)malloc(sizeof(nodo));
@@ -239,5 +223,3 @@ void imprimirLista(nodo *lista) {
 
     return;
 }
-
-//look at my face step in my soul while i get u stupify WOAH
