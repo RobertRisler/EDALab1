@@ -138,7 +138,7 @@ lista girarRodillo(lista rodillo, int j) {
 }
 
 long encontrarCombinaciones(char **maquina, int alto, int ancho) {
-    int i, j, k, l, verificador, contador;
+    int i, j, k, l, contador;
     long acumulado = 0;
     char elemento1, elemento2;
     
@@ -155,7 +155,7 @@ long encontrarCombinaciones(char **maquina, int alto, int ancho) {
                 elemento2 = maquina[i][k];
             }
             if (contador > 2) {
-                acumulado = acumulado + (50 * (pow(contador, 1.5)));
+                acumulado += (50 * (pow(contador, 1.5)));
                 j = k;
             }
         }
@@ -163,8 +163,6 @@ long encontrarCombinaciones(char **maquina, int alto, int ancho) {
     
     // Encontrar las combinaciones diagonales hacia la derecha-abajo.
     lista diagonal;
-    nodo *aux;
-    nodo *aux2;
 
     for (i = (alto - 3); i > 0; i--) {
         k = i;
@@ -174,37 +172,7 @@ long encontrarCombinaciones(char **maquina, int alto, int ancho) {
             diagonal = insertarLista(diagonal, maquina[k][j]);
             k++;
         }
-
-        // Hacer que deje de ser lista enlazada circular.
-        aux = diagonal.inicio;
-        while (aux != diagonal.fin) {
-            aux = aux->sgte;
-        }
-        aux->sgte = NULL;
-
-        // Busqueda.
-        aux = diagonal.inicio;
-        aux2 = diagonal.inicio;
-        contador = 1;
-        while (aux2->sgte != NULL) {
-            aux2 = aux2->sgte;
-            if (aux->valor == aux2->valor) {
-                contador++;
-            }
-            else {
-                if (contador > 2) {
-                    acumulado = acumulado + (50 * (pow(contador, 1.5)));
-                    contador = 1;
-                }
-                else {
-                    contador = 1;
-                }
-                aux = aux2;
-            }
-        }
-        if (contador > 2) {
-            acumulado = acumulado + (50 * (pow(contador, 1.5)));
-        }
+        acumulado += encontrarPuntaje(diagonal);
         borrarLista(diagonal);
     }
 
@@ -216,37 +184,7 @@ long encontrarCombinaciones(char **maquina, int alto, int ancho) {
             diagonal = insertarLista(diagonal, maquina[i][l]);
             l++;
         }
-
-        // Hacer que deje de ser lista enlazada circular.
-        aux = diagonal.inicio;
-        while (aux != diagonal.fin) {
-            aux = aux->sgte;
-        }
-        aux->sgte = NULL;
-
-        // Busqueda.
-        aux = diagonal.inicio;
-        aux2 = diagonal.inicio;
-        contador = 1;
-        while (aux2->sgte != NULL) {
-            aux2 = aux2->sgte;
-            if (aux->valor == aux2->valor) {
-                contador++;
-            }
-            else {
-                if (contador > 2) {
-                    acumulado = acumulado + (50 * (pow(contador, 1.5)));
-                    contador = 1;
-                }
-                else {
-                    contador = 1;
-                }
-                aux = aux2;
-            }
-        }
-        if (contador > 2) {
-            acumulado = acumulado + (50 * (pow(contador, 1.5)));
-        }
+        acumulado += encontrarPuntaje(diagonal);
         borrarLista(diagonal);
     }
 
@@ -260,45 +198,53 @@ long encontrarCombinaciones(char **maquina, int alto, int ancho) {
             l++;
         }
         valorMax--;
-
-        // Hacer que deje de ser lista enlazada circular.
-        aux = diagonal.inicio;
-        while (aux != diagonal.fin) {
-            aux = aux->sgte;
-        }
-        aux->sgte = NULL;
-
-        // Busqueda.
-        aux = diagonal.inicio;
-        aux2 = diagonal.inicio;
-        contador = 1;
-        while (aux2->sgte != NULL) {
-            aux2 = aux2->sgte;
-            if (aux->valor == aux2->valor) {
-                contador++;
-            }
-            else {
-                if (contador > 2) {
-                    acumulado = acumulado + (50 * (pow(contador, 1.5)));
-                    contador = 1;
-                }
-                else {
-                    contador = 1;
-                }
-                aux = aux2;
-            }
-        }
-        if (contador > 2) {
-            acumulado = acumulado + (50 * (pow(contador, 1.5)));
-        }
+        acumulado += encontrarPuntaje(diagonal);
         borrarLista(diagonal);
     }
-
-        
 
     return acumulado;
 }
 
+long encontrarPuntaje(lista diagonal) {
+
+    nodo *aux;
+    nodo *aux2;
+    int contador;
+    long acumAux = 0;
+
+    // Hacer que deje de ser lista enlazada circular.
+    aux = diagonal.inicio;
+    while (aux != diagonal.fin) {
+        aux = aux->sgte;
+    }
+    aux->sgte = NULL;
+
+    // Busqueda.
+    aux = diagonal.inicio;
+    aux2 = diagonal.inicio;
+    contador = 1;
+    while (aux2->sgte != NULL) {
+        aux2 = aux2->sgte;
+        if (aux->valor == aux2->valor) {
+            contador++;
+        }
+        else {
+            if (contador > 2) {
+                acumAux += (50 * (pow(contador, 1.5)));
+                contador = 1;
+            }
+            else {
+                contador = 1;
+            }
+            aux = aux2;
+        }
+    }
+    if (contador > 2) {
+        acumAux += (50 * (pow(contador, 1.5)));
+    }
+
+    return acumAux;
+}
 
 /********** Otras funciones **********/
 lista insertarLista(lista rodillo, char elemento) {

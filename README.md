@@ -27,5 +27,9 @@ Lab 1 EDA C (2-2018)
           en la matriz original máquina.
 
         - Se encuentran las combinaciones horizontales y se asignan los puntos correspondientes.
+    
+    Avance 15 de Noviembre 2018:
 
-        -
+        - Se encuentran las combinaciones diagonales derecha-abajo y se asignan puntos.
+
+        - 
