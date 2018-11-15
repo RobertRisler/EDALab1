@@ -282,7 +282,7 @@ void crearArchivoResultados (long puntajeObtenido) {
     pArchivoIN = fopen("premios.in", "r");
     pArchivoOUT = fopen("resultados.out", "w");
 
-    fprintf(pArchivoOUT, "Puntaje obtenido: %d\n", puntajeObtenido);
+    fprintf(pArchivoOUT, "Puntaje obtenido: %ld\n", puntajeObtenido);
     fprintf(pArchivoOUT, "Premio: ");
 
     int puntajeAnterior, puntajeActual;
