@@ -70,8 +70,13 @@ int main() {
     puntajeAcumulado = encontrarCombinaciones(filas, dimensiones[0], dimensiones[1]);
     printf("%ld\n", puntajeAcumulado);
 
+
+
+
     return 0;
 }
+
+
 
 /********** Funciones pertenecientes al programa **********/
 void obtenerDimensiones(int *arreglo) {
@@ -160,46 +165,97 @@ long encontrarCombinaciones(char **maquina, int alto, int ancho) {
             }
         }
     }
-    
-    // Encontrar las combinaciones diagonales hacia la derecha-abajo.
-    lista diagonal;
+    if (alto < ancho) {
 
-    for (i = (alto - 3); i > 0; i--) {
-        k = i;
-        diagonal.inicio = NULL;
-        diagonal.size = 0;
-        for (j = 0; j < (alto - i); j++) {
-            diagonal = insertarLista(diagonal, maquina[k][j]);
-            k++;
+        lista diagonal;
+
+        // Encontrar las combinaciones diagonales hacia la derecha-abajo.
+        // Esquina inferior izquierda.
+        for (i = (alto - 3); i > 0; i--) {
+            k = i;
+            diagonal.inicio = NULL;
+            diagonal.size = 0;
+            for (j = 0; j < (alto - i); j++) {
+                diagonal = insertarLista(diagonal, maquina[k][j]);
+                k++;
+            }
+            acumulado += encontrarPuntaje(diagonal);
+            borrarLista(diagonal);
         }
-        acumulado += encontrarPuntaje(diagonal);
-        borrarLista(diagonal);
+
+        // Centro.
+        for (j = 0; j < (ancho - alto + 1); j++) {
+            l = j;
+            diagonal.inicio = NULL;
+            diagonal.size = 0;
+            for(i = 0; i < alto; i++) {
+                diagonal = insertarLista(diagonal, maquina[i][l]);
+                l++;
+            }
+            acumulado += encontrarPuntaje(diagonal);
+            borrarLista(diagonal);
+        }
+
+        // Esquina superior derecha.
+        int valorMax = alto - 2;
+        for (j = (ancho - alto + 1); j < (ancho - 2); j++) {
+            l = j;
+            diagonal.inicio = NULL;
+            diagonal.size = 0;
+            for(i = 0; i <= valorMax; i++) {
+                diagonal = insertarLista(diagonal, maquina[i][l]);
+                l++;
+            }
+            valorMax--;
+            acumulado += encontrarPuntaje(diagonal);
+            borrarLista(diagonal);
+        }
+
+        // Encontrar las combinaciones diagonales hacia la izquierda-abajo.
+        // Esquina superior izquierda.
+        for (j = 2; j <= (alto - 2); j++) {
+            l = j;
+            diagonal.inicio = NULL;
+            diagonal.size = 0;
+            for (i = 0; i <= j; i++) {
+                diagonal = insertarLista(diagonal, maquina[i][l]);
+                l--;
+            }
+            acumulado += encontrarPuntaje(diagonal);
+            borrarLista(diagonal);
+        }
+
+        // Centro.
+        for (j = (alto - 1); j < ancho; j++) {
+            l = j;
+            diagonal.inicio = NULL;
+            diagonal.size = 0;
+            for (i = 0; i < alto; i++) {
+                diagonal = insertarLista(diagonal, maquina[i][l]);
+                l--;
+            }
+            acumulado += encontrarPuntaje(diagonal);
+            borrarLista(diagonal);
+        }
+
+        // Esquina inferior derecha.
+        valorMax = ancho - alto + 1;
+        for (i = 1; i < (alto - 2); i++) {
+            k = i;
+            diagonal.inicio = NULL;
+            diagonal.size = 0;
+            for (j = (ancho - 1); j >= valorMax; j--) {
+                diagonal = insertarLista(diagonal, maquina[k][j]);
+                k++;
+            }
+            valorMax++;
+            acumulado += encontrarPuntaje(diagonal);
+            borrarLista(diagonal);
+        }
     }
 
-    for (j = 0; j < (ancho - alto + 1); j++) {
-        l = j;
-        diagonal.inicio = NULL;
-        diagonal.size = 0;
-        for(i = 0; i < alto; i++) {
-            diagonal = insertarLista(diagonal, maquina[i][l]);
-            l++;
-        }
-        acumulado += encontrarPuntaje(diagonal);
-        borrarLista(diagonal);
-    }
-
-    int valorMax = alto - 2;
-    for (j = (ancho - alto + 1); j < (ancho - 2); j++) {
-        l = j;
-        diagonal.inicio = NULL;
-        diagonal.size = 0;
-        for(i = 0; i <= valorMax; i++) {
-            diagonal = insertarLista(diagonal, maquina[i][l]);
-            l++;
-        }
-        valorMax--;
-        acumulado += encontrarPuntaje(diagonal);
-        borrarLista(diagonal);
+    else {
+        // Maquinas de alto > ancho no implementado.
     }
 
     return acumulado;
@@ -245,6 +301,10 @@ long encontrarPuntaje(lista diagonal) {
 
     return acumAux;
 }
+
+
+
+
 
 /********** Otras funciones **********/
 lista insertarLista(lista rodillo, char elemento) {
