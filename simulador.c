@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-#include "lab.h"
+#include "simulador.h"
 
 /********** Main **********/
 int main() {
@@ -13,39 +13,44 @@ int main() {
     srand(2018);
 
     // Creacion maquina.
-    int i, j;
-    char maquina[dimensiones[0]][dimensiones[1]];
-    char *filas[dimensiones[0]];
-    for (i = 0; i < dimensiones[0]; i++) {
-        filas[i] = maquina[i];
-    }
-    crearMaquina(filas, dimensiones[1]);
-
-    // Girar rodillo.
-    for (j = 0; j < dimensiones[1]; j++) {
-        lista rodillo;
-        rodillo.inicio = NULL;
-        rodillo.size = 0;
+    if (dimensiones[0] < dimensiones[1]) {
+        int i, j;
+        char maquina[dimensiones[0]][dimensiones[1]];
+        char *filas[dimensiones[0]];
         for (i = 0; i < dimensiones[0]; i++) {
-            rodillo = insertarLista(rodillo, maquina[i][j]);
+            filas[i] = maquina[i];
         }
-        rodillo = girarRodillo(rodillo, j);
+        crearMaquina(filas, dimensiones[1]);
 
-        // Devolver los valores a la matriz.
-        nodo *aux = rodillo.inicio;
-        for (i = 0; i < dimensiones[0]; i++) {
-            maquina[i][j] = aux->valor;
-            aux = aux->sgte;
+        // Girar rodillo.
+        for (j = 0; j < dimensiones[1]; j++) {
+            lista rodillo;
+            rodillo.inicio = NULL;
+            rodillo.size = 0;
+            for (i = 0; i < dimensiones[0]; i++) {
+                rodillo = insertarLista(rodillo, maquina[i][j]);
+            }
+            rodillo = girarRodillo(rodillo, j);
+
+            // Devolver los valores a la matriz.
+            nodo *aux = rodillo.inicio;
+            for (i = 0; i < dimensiones[0]; i++) {
+                maquina[i][j] = aux->valor;
+                aux = aux->sgte;
+            }
+            borrarLista(rodillo);
         }
-        borrarLista(rodillo);
+
+        // Calcular puntaje total.
+        long puntajeAcumulado;
+        puntajeAcumulado = encontrarCombinaciones(filas, dimensiones[0], dimensiones[1]);
+
+        // Creacion y relleno de archivo resultados.out
+        crearArchivoResultados(puntajeAcumulado);
     }
-
-    // Calcular puntaje total.
-    long puntajeAcumulado;
-    puntajeAcumulado = encontrarCombinaciones(filas, dimensiones[0], dimensiones[1]);
-
-    // Creacion y relleno de archivo resultados.out
-    crearArchivoResultados(puntajeAcumulado);
+    else {
+        printf("El programa se encuentra desactivado para máquinas con un alto mayor o igual al ancho");
+    }
 
     return 0;
 }
@@ -139,6 +144,7 @@ long encontrarCombinaciones(char **maquina, int alto, int ancho) {
             }
         }
     }
+
     if (alto < ancho) {
 
         lista diagonal;
