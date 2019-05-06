@@ -332,7 +332,7 @@ lista insertarLista(lista rodillo, char elemento) {
 
 	if (rodillo.size == 0) {
 		rodillo.inicio = nuevo;
-        rodillo.fin = nuevo;
+        	rodillo.fin = nuevo;
 		rodillo.size = 1;
 	}
 	else {
@@ -342,8 +342,8 @@ lista insertarLista(lista rodillo, char elemento) {
 			aux = aux->sgte;
 		}
 		aux->sgte = nuevo;
-        rodillo.fin = nuevo;
-        nuevo->sgte = rodillo.inicio;
+		rodillo.fin = nuevo;
+		nuevo->sgte = rodillo.inicio;
 		rodillo.size++;
 	}
 
