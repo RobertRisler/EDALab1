@@ -1,5 +1,6 @@
-# EDALab1
-Lab 1 EDA C (2-2018)
+# EDA-Lab1
+ Lab 1 Análisis de algoritmos y Estructuras de Datos. C. (2-2018).
+
 
     Avance 11 de Noviembre 2018:
 
